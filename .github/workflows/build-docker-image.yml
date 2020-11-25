@@ -1,0 +1,24 @@
+name: "build and push docker image"
+on: 
+  push:
+    branches:
+      - "dev"
+      - "master"
+jobs:
+  build-docker-image:
+    name: build docker image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Publish image
+        uses: docker/build-push-action@v1
+        with:
+          dockerfile: QuoteBot.Api/Dockerfile
+          registry: docker.pkg.github.com
+          username: $GITHUB_ACTOR
+          password: ${{ secrets.GITHUB_TOKEN }}
+          repository: nicklong98/quotebot/backend
+          tag_with_ref: true
+          tag_with_sha: true
+    
