@@ -18,7 +18,7 @@ jobs:
           registry: docker.pkg.github.com
           username: $GITHUB_ACTOR
           password: ${{ secrets.GITHUB_TOKEN }}
-          repository: nicklong98/quotebot/backend
+          repository: nicklong98/quotebot.api/backend
           tag_with_ref: true
           tag_with_sha: true
     
