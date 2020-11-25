@@ -11,6 +11,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v1
+      - name: Extract branch name
+        shell: bash
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        id: extract_branch
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
       - name: Set up Docker Buildx
@@ -26,4 +30,6 @@ jobs:
         with:
           context: .
           file: ./QuoteBot.Api/Dockerfile
+          tags: ghcr.io/nicklong98/quotebot.api:${{ steps.extract_branch.outputs.branch }}
+          push: true
     
