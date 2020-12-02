@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
@@ -10,7 +12,7 @@ namespace QuoteBot.Api.Quotes
     [Route("api/v1/quote")]
     public class CreateQuoteController : Controller
     {
-        public record CreateQuoteRequestVm(string ServerId, string UserId, string ReporterId, string Body);
+        public record CreateQuoteRequestVm(string ServerId, string UserId, string ReporterId, string Body, IEnumerable<string> Attachments);
 
         private class CreateQuoteMappingProfile : Profile
         {
@@ -21,7 +23,11 @@ namespace QuoteBot.Api.Quotes
                     .ForMember(x => x.CreatedAt, opts => opts.MapFrom(__ => DateTime.UtcNow))
                     .ForMember(x => x.ReporterId, opts => opts.MapFrom(src => long.Parse(src.ReporterId)))
                     .ForMember(x => x.ServerId, opts => opts.MapFrom(src => long.Parse(src.ServerId)))
-                    .ForMember(x => x.UserId, opts => opts.MapFrom(src => src.UserId));
+                    .ForMember(x => x.UserId, opts => opts.MapFrom(src => src.UserId))
+                    .ForMember(x => x.QuoteAttachments, opts => opts.MapFrom(src => src.Attachments.Select(url => new QuoteAttachment
+                    {
+                        Url = url
+                    })));
             }
         }
 

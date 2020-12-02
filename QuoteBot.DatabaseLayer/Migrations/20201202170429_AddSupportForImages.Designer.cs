@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using QuoteBot.DatabaseLayer;
@@ -9,9 +10,10 @@ using QuoteBot.DatabaseLayer;
 namespace QuoteBot.DatabaseLayer.Migrations
 {
     [DbContext(typeof(QuoteContext))]
-    partial class QuoteContextModelSnapshot : ModelSnapshot
+    [Migration("20201202170429_AddSupportForImages")]
+    partial class AddSupportForImages
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
