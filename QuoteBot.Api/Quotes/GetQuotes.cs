@@ -47,7 +47,7 @@ namespace QuoteBot.Api.Quotes
             if (quote == default)
             {
                 quote = new GetQuoteResponseVm("Look I'm lame and don't have any quotes in quote bot ok?",
-                    userId.ToString(), null);
+                    userId.ToString(), DateTime.UtcNow, null);
             }
 
             return Ok(quote);
